@@ -145,9 +145,16 @@ session_start();
 
 //var_dump($_SESSION);
 // var_dump($_SERVER['REQUEST_URI']);
+$host = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+// echo $host;
 //---------------------------LOGIN-END----------------------------------------------------------
 ?>
-<body class='home'>
+<? if($host == 'localhost/bestboost_calculator/wayinwebpro.github.io/bestboost/back/index.php'){
+	echo '<body class="home">';
+} else{
+	echo '<body class="otherPages">';
+}
+?>
 <?php echo display_error(); ?>
 <!--Mobile Menu-->
 <div class="container">
@@ -180,15 +187,8 @@ session_start();
 				<ul class="menu">
 	<li><a href="index.php">Home</a></li>
 	<li><a href="buy-boost.php">Buy Boost</a></li>
-	<li><a href="#">FAQ</a></li>
-
 </ul>
 				<!--log out-->
-
-				<div class="topButtons_wrapper">
-	<button class="button buttonLogin main"><span>Sign In</span></button>
-	<a href="registration.php" class="button accent"><span>Join Up</span></a>
-</div>
 <? if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) :?>
 	<!--log in-->
 	<div class="user_wrapper">
@@ -198,8 +198,12 @@ session_start();
 		<div class="userMenu">
 			<ul>
 				<li><a href="profile.php"><img src="./images/dist/icons/user.png" alt="user">My Account</a></li>
-				<li><a href="#"><img src="./images/dist/icons/сart.png" alt="orders">My Orders</a></li>
-				<!-- <li><a href="#"><img src="./images/dist/icons/orderList.png" alt="orders list">Order List</a></li> -->
+				<li><a href="my-orders.php"><img src="./images/dist/icons/сart.png" alt="orders">My Orders</a></li>
+				<?
+					if($_SESSION['acc_type'] === 'admin'){
+						echo '<li><a href="order_list.php"><img src="./images/dist/icons/orderList.png" alt="orders list">Order List</a></li>';
+					}
+				?>
 				<li><a href="logout.php"><img src="./images/dist/icons/logout.png" alt="orders list">Logout</a></li>
 			</ul>
 		</div>
@@ -250,7 +254,6 @@ session_start();
 						<ul class="menu">
 	<li><a href="index.php">Home</a></li>
 	<li><a href="buy-boost.php">Buy Boost</a></li>
-	<li><a href="#">FAQ</a></li>
 </ul>
 
 						<!--log out-->
@@ -265,9 +268,13 @@ session_start();
 	<div class="userMenu">
 		<ul>
 			<li><a href="profile.php"><img src="./images/dist/icons/user.png" alt="user">My Account</a></li>
-			<li><a href="#"><img src="./images/dist/icons/сart.png" alt="orders">My Orders</a></li>
-	<!-- 		<li><a href="#"><img src="./images/dist/icons/orderList.png" alt="orders list">Order List</a></li> -->
-			<li><a href="logout.php"><img src="./images/dist/icons/logout.png" alt="orders list">Logout</a></li>
+			<li><a href="my-orders.php"><img src="./images/dist/icons/сart.png" alt="orders">My Orders</a></li>
+			<?		
+				if($_SESSION['acc_type'] === 'admin'){
+					echo '<li><a href="order_list.php"><img src="./images/dist/icons/orderList.png" alt="orders list">Order List</a></li>';
+				}
+			?>
+			<li><a href="logout.php"><img src="./images/dist/icons/logout.png" alt="Logout">Logout</a></li>
 		</ul>
 	</div>
 </div>

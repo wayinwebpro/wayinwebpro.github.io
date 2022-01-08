@@ -1,6 +1,63 @@
 <?
 $page_title = "Buy Boost";
 include 'header.php';
+require_once 'model/Order.php'; 
+
+if(isset($_POST['submitDivisionOrder']))
+{
+	$o = new Order();
+	$dbcon  = Database::getDb();
+	$user_id = $_SESSION['id'];
+
+	$type = 'Division';
+	$current_rank = $_POST['currentRankDiv'];
+	$desired_rank = $_POST['desiredRankDiv'];
+	$server = $_POST['server'];
+	//Additional features--------------------------------------------------
+	if(isset($_POST['duoboost'])){
+		$duo_boost = 'Yes';
+	}else{
+		$duo_boost = 'No';
+	}
+
+	if(isset($_POST['rolechampions'])){
+		$rolechampions = 'Yes';
+	}else{
+		$rolechampions = 'No';
+	}
+
+	if(isset($_POST['stream'])){
+		$stream = 'Yes';
+	}else{
+		$stream = 'No';
+	}
+
+	if(isset($_POST['prority'])){
+		$prority = 'Yes';
+	}else{
+		$prority = 'No';
+	}
+
+	if(isset($_POST['express'])){
+		$express = 'Yes';
+	}else{
+		$express = 'No';
+	}
+	//End additional features---------------------------------------------
+	$primary_role = $_POST['role'];
+	$primary_champion = $_POST['champion'];
+	$secondary_role = $_POST['role-alt'];
+	$secondary_champion = $_POST['champion-alt'];
+	$final_amount_div = $_POST['finalAmountDiv'];
+	$status = 'New';
+	// echo $current_rank;
+	// echo $desired_rank;
+	// echo $server;
+	// echo $duo_boost;
+
+	$addOrder = $o->addOrder($dbcon,$type, $current_rank, $desired_rank, $server, $duo_boost, $rolechampions, $stream, $prority, $express, $primary_role, $primary_champion, $secondary_role, $secondary_champion, $final_amount_div, $user_id, $status);
+}
+
 ?>
 			<div class="row headingZ">
 				<div class="col-12 g-0">
@@ -35,7 +92,7 @@ include 'header.php';
 							<!-- <li><span>Placement </span></li>
 							<li><span>Anti-Decay</span></li> -->
 						</ul>
-						<form class="order_body tabContent orderDivision">
+						<form method="POST" enctype="multipart/form-data" class="order_body tabContent orderDivision">
 							<h2 class="orderTitle">Your Order</h2>
 							<span class="orderTitle_descr">Select your order details</span>
 							<div class="row gx-5 justify-content-center">
@@ -175,7 +232,7 @@ include 'header.php';
 										<div class="amountWrapper">
 											<!--Вот тут финальные циферки-->
 											<span class="finalAmount">$0</span>
-											<input type="hidden" value="0" class="finalAmountInp">
+											<input type="hidden" value="0" class="finalAmountInp" name="finalAmountDiv">
 											<span class="clearAmount">($0)</span>
 											<input type="hidden" class="clearAmountInp" value="0">
 											<!--Вот тут финальные циферки-->
@@ -539,13 +596,13 @@ include 'header.php';
 									</div>
 								</div>
 								<div class="col-12">
-									<button class="button accent"><span>buy boost</span></button>
+									<button type="submit" name="submitDivisionOrder" class="button accent"><span>buy boost</span></button>
 								</div>
 							</div>
 						</form>
 
 						<!-- 2 таб -->
-						<form class="order_body tabContent orderNetwin">
+						<form method="POST" enctype="multipart/form-data" class="order_body tabContent orderNetwin">
 							<h2 class="orderTitle">Your Order</h2>
 							<span class="orderTitle_descr">Select your order details</span>
 							<div class="row gx-5 justify-content-center">
@@ -675,7 +732,7 @@ include 'header.php';
 									<div class="categoryRankTitle totalAmount">
 										<h4>Total amount <span class="discount">-50%</span></h4>
 										<div class="amountWrapper">
-											<span class="finalAmount">$852</span>
+											<span class="finalAmount" name="finalAmount">$852</span>
 											<span class="clearAmount">($1704)</span>
 										</div>
 									</div>
@@ -1037,7 +1094,7 @@ include 'header.php';
 									</div>
 								</div>
 								<div class="col-12">
-									<button class="button accent"><span>buy boost</span></button>
+									<button type="submit" class="button accent" name="name="submitNetwinOrder><span>buy boost</span></button>
 								</div>
 							</div>
 						</form>
