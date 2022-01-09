@@ -56,6 +56,10 @@ if(isset($_POST['submitDivisionOrder']))
 	// echo $duo_boost;
 
 	$addOrder = $o->addOrder($dbcon,$type, $current_rank, $desired_rank, $server, $duo_boost, $rolechampions, $stream, $prority, $express, $primary_role, $primary_champion, $secondary_role, $secondary_champion, $final_amount_div, $user_id, $status);
+	if(isset($addOrder)){
+		header('Location: success-order.php');
+		exit;
+	}
 }
 //NetWin
 if(isset($_POST['submitNetwinOrder']))
@@ -106,24 +110,27 @@ if(isset($_POST['submitNetwinOrder']))
 	$final_amount_netwin = $_POST['finalAmount_netwin'];
 	$status = 'New';
 
-	echo 'TEST FORM';
-	echo $user_id;
-	echo $type;
-	echo $current_rank_netwin;
-	echo $number_games;
-	echo $server_netwin;
-	echo $duoboost_netwin;
-	echo $rolechampions_netwin;
-	echo $stream_netwin;
-	echo $prority_netwin;
-	echo $express_netwin;
-	echo $primary_role_netwin;
-	echo $primary_champion_netwin;
-	echo $secondary_role_netwin;
-	echo $secondary_champion_netwin;
-	echo $final_amount_netwin;
-	echo $status;
+	// echo $user_id;
+	// echo $type;
+	// echo $current_rank_netwin;
+	// echo $number_games;
+	// echo $server_netwin;
+	// echo $duoboost_netwin;
+	// echo $rolechampions_netwin;
+	// echo $stream_netwin;
+	// echo $prority_netwin;
+	// echo $express_netwin;
+	// echo $primary_role_netwin;
+	// echo $primary_champion_netwin;
+	// echo $secondary_role_netwin;
+	// echo $secondary_champion_netwin;
+	// echo $final_amount_netwin;
+	// echo $status;
 	$addOrder = $o->addOrderNetWin($dbcon,$type, $current_rank_netwin, $number_games, $server_netwin, $duoboost_netwin, $rolechampions_netwin, $stream_netwin, $prority_netwin, $express_netwin, $primary_role_netwin, $primary_champion_netwin, $secondary_role_netwin, $secondary_champion_netwin, $final_amount_netwin, $user_id, $status);
+	if(isset($addOrder)){
+		header('Location: success-order.php');
+		exit;
+	}
 }
 
 ?>
@@ -717,7 +724,14 @@ if(isset($_POST['submitNetwinOrder']))
 									</div>
 								</div>
 								<div class="col-12">
-									<button type="submit" name="submitDivisionOrder" class="button accent"><span>buy boost</span></button>
+									<?
+										if(isset($_SESSION['id'])){
+											echo '<button type="submit" name="submitDivisionOrder" class="button accent"><span>buy boost</span></button>';
+										}
+										else{
+											echo '<span class="orderUnlogged">To  submit order please login into your account!</span>';
+										}
+									?>
 								</div>
 							</div>
 						</form>
@@ -796,40 +810,40 @@ if(isset($_POST['submitNetwinOrder']))
 									<div class="categoryRankTitle">
 										<h4>Additional features </h4>
 										<div class="categoryRankTitle_wrapper">
-											<label>
-												<input type="checkbox" name="duoboost_netwin">
+											<label class="addInp">
+												<input type="checkbox" name="duoboost" value="1.5">
 												<span class="circle"></span>
 												<span class="bg"></span>
 											</label>
 											<p>Duo Boost (+50%)</p>
 										</div>
 										<div class="categoryRankTitle_wrapper">
-											<label>
-												<input type="checkbox" name="rolechampions_netwin">
+											<label class="addInp">
+												<input type="checkbox" name="rolechampions" value="1.15">
 												<span class="circle"></span>
 												<span class="bg"></span>
 											</label>
 											<p>Roles/Champions (+15%)</p>
 										</div>
 										<div class="categoryRankTitle_wrapper">
-											<label>
-												<input type="checkbox" name="stream_netwin">
+											<label class="addInp">
+												<input type="checkbox" name="stream" value="1.15">
 												<span class="circle"></span>
 												<span class="bg"></span>
 											</label>
 											<p>Twitch stream (+15%)</p>
 										</div>
 										<div class="categoryRankTitle_wrapper">
-											<label>
-												<input type="checkbox" name="prority_netwin">
+											<label class="addInp">
+												<input type="checkbox" name="prority" value="1.20">
 												<span class="circle"></span>
 												<span class="bg"></span>
 											</label>
 											<p>High priority (+20%)</p>
 										</div>
 										<div class="categoryRankTitle_wrapper">
-											<label>
-												<input type="checkbox" name="express_netwin">
+											<label class="addInp">
+												<input type="checkbox" name="express" value="1.25">
 												<span class="circle"></span>
 												<span class="bg"></span>
 											</label>

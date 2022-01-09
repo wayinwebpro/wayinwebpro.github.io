@@ -56,11 +56,11 @@ class Order
 
 	}
 
-		public function selectAllOrdersByUser($dbcon, $user_id){
+	public function selectAllOrdersByUser($dbcon, $user_id){
 		$sql = "SELECT * FROM Orders
-				INNER JOIN Users
-				ON Orders.user_id = Users.id
-				WHERE user_id = :user_id;";
+			INNER JOIN Users
+			ON Orders.user_id = Users.id
+			WHERE user_id = :user_id;";
 
 		$pst = $dbcon->prepare($sql);
 		$pst->bindParam(':user_id', $user_id);
@@ -108,6 +108,34 @@ class Order
 
         $order = $pst->fetch(PDO::FETCH_OBJ);
         return $order;
+	}
+	public function selectAllOrdersNetWin($dbcon){
+		$sql = "SELECT * FROM OrdersNetWin
+				INNER JOIN Users
+				ON OrdersNetWin.user_id = Users.id
+				ORDER BY date DESC;";
+
+		$pst = $dbcon->prepare($sql);
+		$pst->execute();
+
+		$order = $pst->fetchAll(PDO::FETCH_OBJ);
+		return $order;
+
+	}
+
+		public function selectAllOrdersNetWinByUser($dbcon, $user_id){
+		$sql = "SELECT * FROM OrdersNetWin
+			INNER JOIN Users
+			ON OrdersNetWin.user_id = Users.id
+			WHERE user_id = :user_id;";
+
+		$pst = $dbcon->prepare($sql);
+		$pst->bindParam(':user_id', $user_id);
+		$pst->execute();
+
+		$order = $pst->fetchAll(PDO::FETCH_OBJ);
+		return $order;
+
 	}
 }
 ?>
