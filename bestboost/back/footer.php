@@ -23,7 +23,6 @@
 						<h4 class="footerTitle">About us</h4>
 						<ul class="footerList">
 							<li><a href="#">Home</a></li>
-							<li><a href="#">FAQ</a></li>
 						</ul>
 					</div>
 				</div>
@@ -31,12 +30,12 @@
 					<div class="footerGroup">
 						<h4 class="footerTitle">Solo boosting</h4>
 						<ul class="footerList">
-							<li><a href="#">Solo division boosting</a></li>
-							<li><a href="#">Solo placement matches</a></li>
-							<li><a href="#">Solo net wins</a></li>
-							<li><a href="#">Solo normal wins</a></li>
-							<li><a href="#">Solo masteries</a></li>
-							<li><a href="#">Solo leveling</a></li>
+							<li><a href="buy-boost.php">Solo division boosting</a></li>
+							<li><a href="buy-boost.php">Solo placement matches</a></li>
+							<li><a href="buy-boost.php">Solo net wins</a></li>
+							<li><a href="buy-boost.php">Solo normal wins</a></li>
+							<li><a href="buy-boost.php">Solo masteries</a></li>
+							<li><a href="buy-boost.php">Solo leveling</a></li>
 						</ul>
 					</div>
 				</div>
@@ -44,16 +43,11 @@
 					<div class="footerGroup">
 						<h4 class="footerTitle">Duo boosting</h4>
 						<ul class="footerList">
-							<li><a href="#">Duo division boosting</a></li>
-							<li><a href="#">Duo placement matches</a></li>
-							<li><a href="#">Duo net wins</a></li>
-							<li><a href="#">Duo games</a></li>
+							<li><a href="buy-boost.php">Duo division boosting</a></li>
+							<li><a href="buy-boost.php">Duo placement matches</a></li>
+							<li><a href="buy-boost.php">Duo net wins</a></li>
+							<li><a href="buy-boost.php">Duo games</a></li>
 						</ul>
-					</div>
-				</div>
-				<div class="col-12 order-5">
-					<div class="createdBy">
-						<a target="_blank" href="https://wayinweb.pro"><img src="./images/dist/main/logo_created.svg" alt="created by wayinweb pro"></a>
 					</div>
 				</div>
 			</div>

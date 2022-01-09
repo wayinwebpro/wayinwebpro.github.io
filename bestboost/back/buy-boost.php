@@ -2,7 +2,7 @@
 $page_title = "Buy Boost";
 include 'header.php';
 require_once 'model/Order.php'; 
-
+//Division
 if(isset($_POST['submitDivisionOrder']))
 {
 	$o = new Order();
@@ -57,6 +57,74 @@ if(isset($_POST['submitDivisionOrder']))
 
 	$addOrder = $o->addOrder($dbcon,$type, $current_rank, $desired_rank, $server, $duo_boost, $rolechampions, $stream, $prority, $express, $primary_role, $primary_champion, $secondary_role, $secondary_champion, $final_amount_div, $user_id, $status);
 }
+//NetWin
+if(isset($_POST['submitNetwinOrder']))
+{
+	$o = new Order();
+	$dbcon  = Database::getDb();
+	$user_id = $_SESSION['id'];
+
+	$type = 'NetWin';
+	$current_rank_netwin = $_POST['chooseCurrentRank_NetWin'];
+	$number_games = $_POST['winsQuant'];
+	$server_netwin = $_POST['server_netwin'];
+	//Additional features--------------------------------------------------
+	if(isset($_POST['duoboost_netwin'])){
+		$duoboost_netwin = 'Yes';
+	}else{
+		$duoboost_netwin = 'No';
+	}
+
+	if(isset($_POST['rolechampions_netwin'])){
+		$rolechampions_netwin = 'Yes';
+	}else{
+		$rolechampions_netwin = 'No';
+	}
+
+	if(isset($_POST['stream_netwin'])){
+		$stream_netwin = 'Yes';
+	}else{
+		$stream_netwin = 'No';
+	}
+
+	if(isset($_POST['prority_netwin'])){
+		$prority_netwin = 'Yes';
+	}else{
+		$prority_netwin = 'No';
+	}
+
+	if(isset($_POST['express_netwin'])){
+		$express_netwin = 'Yes';
+	}else{
+		$express_netwin = 'No';
+	}
+	//End additional features---------------------------------------------
+	$primary_role_netwin = $_POST['role_netwin'];
+	$primary_champion_netwin = $_POST['champion_netwin'];
+	$secondary_role_netwin = $_POST['role-alt_netwin'];
+	$secondary_champion_netwin = $_POST['champion-alt_netwin'];
+	$final_amount_netwin = $_POST['finalAmount_netwin'];
+	$status = 'New';
+
+	echo 'TEST FORM';
+	echo $user_id;
+	echo $type;
+	echo $current_rank_netwin;
+	echo $number_games;
+	echo $server_netwin;
+	echo $duoboost_netwin;
+	echo $rolechampions_netwin;
+	echo $stream_netwin;
+	echo $prority_netwin;
+	echo $express_netwin;
+	echo $primary_role_netwin;
+	echo $primary_champion_netwin;
+	echo $secondary_role_netwin;
+	echo $secondary_champion_netwin;
+	echo $final_amount_netwin;
+	echo $status;
+	$addOrder = $o->addOrderNetWin($dbcon,$type, $current_rank_netwin, $number_games, $server_netwin, $duoboost_netwin, $rolechampions_netwin, $stream_netwin, $prority_netwin, $express_netwin, $primary_role_netwin, $primary_champion_netwin, $secondary_role_netwin, $secondary_champion_netwin, $final_amount_netwin, $user_id, $status);
+}
 
 ?>
 			<div class="row headingZ">
@@ -97,7 +165,7 @@ if(isset($_POST['submitDivisionOrder']))
 							<span class="orderTitle_descr">Select your order details</span>
 							<div class="row gx-5 justify-content-center">
 								<div class="col-xl-4 col-lg-5 col-md-6">
-									<div class="currentRank">										
+									<div class="currentRank">							
 											<h3>Current Rank</h3>
 											<img src="./images/dist/icons/iron_rank.png" data-rank="iron" alt="iron rank" class="currentRank_icon">
 											<select class="chooseCurrentRank" name="currentRankDiv">
@@ -106,10 +174,38 @@ if(isset($_POST['submitDivisionOrder']))
 												<option value="Iron3">Iron <span>3</span></option>
 												<option value="Iron2">Iron <span>2</span></option>
 												<option value="Iron1">Iron <span>1</span></option>
+
+												<option value="Bronze4">Bronze <span>4</span></option>
+												<option value="Bronze3">Bronze <span>3</span></option>
+												<option value="Bronze2">Bronze <span>2</span></option>
+												<option value="Bronze1">Bronze <span>1</span></option>
+
+												<option value="Silver4">Silver <span>4</span></option>
+												<option value="Silver3">Silver <span>3</span></option>
+												<option value="Silver2">Silver <span>2</span></option>
+												<option value="Silver1">Silver <span>1</span></option>
+
+												<option value="Gold4">Gold <span>4</span></option>
+												<option value="Gold3">Gold <span>3</span></option>
+												<option value="Gold2">Gold <span>2</span></option>
+												<option value="Gold1">Gold <span>1</span></option>
+
+												<option value="Platinum4">Platinum <span>4</span></option>
+												<option value="Platinum3">Platinum <span>3</span></option>
+												<option value="Platinum2">Platinum <span>2</span></option>
+												<option value="Platinum1">Platinum <span>1</span></option>
+
+												<option value="Diamond4">Diamond <span>4</span></option>
+												<option value="Diamond3">Diamond <span>3</span></option>
+												<option value="Diamond2">Diamond <span>2</span></option>
+												<option value="Diamond1">Diamond <span>1</span></option>
 											</select>
-											<select name="currentPoint">
-												<option value="0">Choose points</option>
-												<option value="1">0 - 20 LP</option>
+											<select class='currentPoint' name="currentPoint">
+												<option value="0-20">0 - 20 LP</option>
+												<option value="21-40">21 - 40 LP</option>
+                                                <option value="41-60">41 - 60 LP</option>
+                                                <option value="61-80">61 - 80 LP</option>
+                                                <option value="81-100">81 - 100 LP</option>
 											</select>
 									</div>
 								</div>
@@ -123,6 +219,31 @@ if(isset($_POST['submitDivisionOrder']))
 												<option value="Iron3">Iron <span>3</span></option>
 												<option value="Iron2">Iron <span>2</span></option>
 												<option value="Iron1">Iron <span>1</span></option>
+
+												<option value="Bronze4">Bronze <span>4</span></option>
+												<option value="Bronze3">Bronze <span>3</span></option>
+												<option value="Bronze2">Bronze <span>2</span></option>
+												<option value="Bronze1">Bronze <span>1</span></option>
+
+												<option value="Silver4">Silver <span>4</span></option>
+												<option value="Silver3">Silver <span>3</span></option>
+												<option value="Silver2">Silver <span>2</span></option>
+												<option value="Silver1">Silver <span>1</span></option>
+
+												<option value="Gold4">Gold <span>4</span></option>
+												<option value="Gold3">Gold <span>3</span></option>
+												<option value="Gold2">Gold <span>2</span></option>
+												<option value="Gold1">Gold <span>1</span></option>
+
+												<option value="Platinum4">Platinum <span>4</span></option>
+												<option value="Platinum3">Platinum <span>3</span></option>
+												<option value="Platinum2">Platinum <span>2</span></option>
+												<option value="Platinum1">Platinum <span>1</span></option>
+
+												<option value="Diamond4">Diamond <span>4</span></option>
+												<option value="Diamond3">Diamond <span>3</span></option>
+												<option value="Diamond2">Diamond <span>2</span></option>
+												<option value="Diamond1">Diamond <span>1</span></option>
 											</select>
 									</div>
 								</div>
@@ -607,15 +728,45 @@ if(isset($_POST['submitDivisionOrder']))
 							<span class="orderTitle_descr">Select your order details</span>
 							<div class="row gx-5 justify-content-center">
 								<div class="col-lg-4">
-									<div class="currentRank">										
-											<h3>Current Rank</h3>
-											<img src="./images/dist/icons/iron_rank.png" data-rank="iron" alt="iron rank" class="currentRank_icon">
-											<select name="currentRank">
-												<option value="Iron">Iron</option>
-											</select>
-											<select name="currentDiv">
-												<option value="Division IV">Division IV</option>
-											</select>
+									<div class="currentRank">							
+										<h3>Current Rank</h3>
+										<img src="./images/dist/icons/iron_rank.png" data-rank="iron" alt="iron rank" class="currentRank_icon">
+										<select class="chooseCurrentRank_NetWin" name="chooseCurrentRank_NetWin">
+											<option value="Choose rank">Choose rank</option>
+											<option value="Iron4">Iron <span>4</span></option>
+											<option value="Iron3">Iron <span>3</span></option>
+											<option value="Iron2">Iron <span>2</span></option>
+											<option value="Iron1">Iron <span>1</span></option>
+
+											<option value="Bronze4">Bronze <span>4</span></option>
+											<option value="Bronze3">Bronze <span>3</span></option>
+											<option value="Bronze2">Bronze <span>2</span></option>
+											<option value="Bronze1">Bronze <span>1</span></option>
+
+											<option value="Silver4">Silver <span>4</span></option>
+											<option value="Silver3">Silver <span>3</span></option>
+											<option value="Silver2">Silver <span>2</span></option>
+											<option value="Silver1">Silver <span>1</span></option>
+
+											<option value="Gold4">Gold <span>4</span></option>
+											<option value="Gold3">Gold <span>3</span></option>
+											<option value="Gold2">Gold <span>2</span></option>
+											<option value="Gold1">Gold <span>1</span></option>
+
+											<option value="Platinum4">Platinum <span>4</span></option>
+											<option value="Platinum3">Platinum <span>3</span></option>
+											<option value="Platinum2">Platinum <span>2</span></option>
+											<option value="Platinum1">Platinum <span>1</span></option>
+
+											<option value="Diamond4">Diamond <span>4</span></option>
+											<option value="Diamond3">Diamond <span>3</span></option>
+											<option value="Diamond2">Diamond <span>2</span></option>
+											<option value="Diamond1">Diamond <span>1</span></option>
+
+											<option value="Master">Master</option>
+											<option value="GrandMaster">GrandMaster</option>
+											<option value="Challendger">Challendger</option>
+										</select>
 									</div>
 								</div>
 								<div class="col-lg-4">
@@ -623,8 +774,8 @@ if(isset($_POST['submitDivisionOrder']))
 									<div class="currentRank desiredRank winsQuant">
 											<h3>Wins</h3>
 											<div class="winsWrapper">
-												<span class="rangeInfo">1</span>
-												<input type="range" min="1" max="20" value="1" name="winsQuant" step="1">
+												<span class="rangeInfo" name="rangeInfo">1</span>
+												<input class='winsQuantInp' type="range" min="1" max="20" value="1" name="winsQuant" step="1">
 											</div>
 									</div>
 								</div>
@@ -632,16 +783,9 @@ if(isset($_POST['submitDivisionOrder']))
 							<div class="row gx-5 justify-content-center">
 								<div class="col-lg-4">
 									<div class="categoryRankTitle">
-										<h4>Division Boost</h4>
-										<div class="categoryRankTitle_wrapper">
-											<span>Iron (Division IV)</span>
-											<span>Master</span>
-										</div>
-									</div>
-									<div class="categoryRankTitle">
 										<h4>Server</h4>
 										<div class="categoryRankTitle_wrapper">
-											<select name="server">
+											<select name="server_netwin">
 												<option value="Choose Server">Choose server</option>
 												<option value="Europe">Europe</option>
 												<option value="North America">North America</option>
@@ -653,7 +797,7 @@ if(isset($_POST['submitDivisionOrder']))
 										<h4>Additional features </h4>
 										<div class="categoryRankTitle_wrapper">
 											<label>
-												<input type="checkbox" name="duoboost">
+												<input type="checkbox" name="duoboost_netwin">
 												<span class="circle"></span>
 												<span class="bg"></span>
 											</label>
@@ -661,7 +805,7 @@ if(isset($_POST['submitDivisionOrder']))
 										</div>
 										<div class="categoryRankTitle_wrapper">
 											<label>
-												<input type="checkbox" name="rolechampions">
+												<input type="checkbox" name="rolechampions_netwin">
 												<span class="circle"></span>
 												<span class="bg"></span>
 											</label>
@@ -669,7 +813,7 @@ if(isset($_POST['submitDivisionOrder']))
 										</div>
 										<div class="categoryRankTitle_wrapper">
 											<label>
-												<input type="checkbox" name="stream">
+												<input type="checkbox" name="stream_netwin">
 												<span class="circle"></span>
 												<span class="bg"></span>
 											</label>
@@ -677,7 +821,7 @@ if(isset($_POST['submitDivisionOrder']))
 										</div>
 										<div class="categoryRankTitle_wrapper">
 											<label>
-												<input type="checkbox" name="prority">
+												<input type="checkbox" name="prority_netwin">
 												<span class="circle"></span>
 												<span class="bg"></span>
 											</label>
@@ -685,7 +829,7 @@ if(isset($_POST['submitDivisionOrder']))
 										</div>
 										<div class="categoryRankTitle_wrapper">
 											<label>
-												<input type="checkbox" name="express">
+												<input type="checkbox" name="express_netwin">
 												<span class="circle"></span>
 												<span class="bg"></span>
 											</label>
@@ -732,8 +876,10 @@ if(isset($_POST['submitDivisionOrder']))
 									<div class="categoryRankTitle totalAmount">
 										<h4>Total amount <span class="discount">-50%</span></h4>
 										<div class="amountWrapper">
-											<span class="finalAmount" name="finalAmount">$852</span>
-											<span class="clearAmount">($1704)</span>
+											<span class="finalAmount" name="finalAmount_netwin">$0</span>
+											<input type="hidden" value="0" class="finalAmountInp" name="finalAmount_netwin">
+											<span class="clearAmount">($0)</span>
+											<input type="hidden" class="clearAmountInp" value="0">
 										</div>
 									</div>
 									
@@ -749,7 +895,7 @@ if(isset($_POST['submitDivisionOrder']))
 									<div class="categoryRankTitle">
 										<h4>Primary Role</h4>
 										<div class="categoryRankTitle_wrapper">
-											<select name="role">
+											<select name="role_netwin">
 												<option value="None">None</option>
 												<option value="Top">Top</option>
 												<option value="Middle">Middle</option>
@@ -759,7 +905,7 @@ if(isset($_POST['submitDivisionOrder']))
 											</select>
 										</div>
 										<div class="categoryRankTitle_wrapper">
-											<select name="champion">
+											<select name="champion_netwin">
 				                        <option value="none">None</option>
 				                        <option value="Aatrox">Aatrox</option>
 				                        <option value="Ahri">Ahri</option>
@@ -923,7 +1069,7 @@ if(isset($_POST['submitDivisionOrder']))
 									<div class="categoryRankTitle">
 										<h4>Secondary Role</h4>
 										<div class="categoryRankTitle_wrapper">
-											<select name="role-alt">
+											<select name="role-alt_netwin">
 												<option value="None">None</option>
 												<option value="Top">Top</option>
 												<option value="Middle">Middle</option>
@@ -933,7 +1079,7 @@ if(isset($_POST['submitDivisionOrder']))
 											</select>
 										</div>
 										<div class="categoryRankTitle_wrapper">
-												<select name="champion-alt">
+												<select name="champion-alt_netwin">
 					                        <option value="none">None</option>
 					                        <option value="Aatrox">Aatrox</option>
 					                        <option value="Ahri">Ahri</option>
@@ -1094,7 +1240,7 @@ if(isset($_POST['submitDivisionOrder']))
 									</div>
 								</div>
 								<div class="col-12">
-									<button type="submit" class="button accent" name="name="submitNetwinOrder><span>buy boost</span></button>
+									<button type="submit" class="button accent" name="submitNetwinOrder"><span>buy boost</span></button>
 								</div>
 							</div>
 						</form>
@@ -1215,64 +1361,6 @@ if(isset($_POST['submitDivisionOrder']))
 			var options={wrapper:'#scrollWrapper', targets:'.sectionBg',wrapperSpeed: 0.04};luxy.init(options)
 		}
 	</script>
-	<script>
-	
-		$('.order_body').each(function(){
-		let ths = $(this)
-		ths.find('.addInp input').change(function(){
-
-			let amount = Number(ths.find('.finalAmountInp').val())
-			let addOpt = Number($(this).val())
-			
-			if(this.checked) {
-				ths.find('.finalAmountInp').val((amount * addOpt).toFixed(2))
-				ths.find('.finalAmount').text('$' + (amount * addOpt).toFixed(2))
-			} else {
-				ths.find('.finalAmountInp').val((amount / addOpt).toFixed(2))
-				ths.find('.finalAmount').text('$' + (amount / addOpt).toFixed(2))
-			}
-
-		})
-
-		ths.find('.chooseCurrentRank, .chooseDesiredRank, .chooseWinsQuant').change(function(e){
-			e.preventDefault();
-
-			let currentRank = ths.find('.chooseCurrentRank').find(":selected").val(),
-				desiredRank = ths.find('.chooseDesiredRank').find(":selected").val();	
-			
-				
-			ths.find('.from').text(currentRank)
-			ths.find('.to').text(desiredRank)
-
-			$.ajax({
-				type: 'POST',
-				url: 'getPrice.php',
-				data: {currentRank:currentRank, desiredRank:desiredRank},
-				success: function(data){
-					
-					// $(".finalAmount, .finalAmountInp").html(data);
-					ths.find('.finalAmount').text('$' + data)
-					ths.find('.finalAmountInp').val(data)
-
-					console.log(data*1)
-
-					if ( isNaN(data) ) {
-						ths.find('label').removeClass('active')
-					} else {
-						ths.find('label').addClass('active')
-					}
-
-				}
-			})
-
-			// Сюда ввести тестовые цифры
-			// ths.find('.finalAmount').text('$' + 10)
-			// ths.find('.finalAmountInp').val(10)
-
-
-		})
-	})
-
-	</script>
+	<script src='js/calc.js'></script>
 </body>
 </html>
